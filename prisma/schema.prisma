@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Gym {
+  cnpj          String       @id
+  nomeAcad      String
+  nomeResp      String
+  telefone      String
+  email         String
+  capacidadeMax String?
+  createdAt     DateTime?
+  updatedAt     DateTime?
+  password      String
+  endereco      String
+  alunos Aluno[]
+  aparelhos Aparelho[]
+  funcionarios Funcionario[]
+}
+
+model Aluno {
+  id Int @id @default(autoincrement())
+  nomeAluno String
+  idade String
+  email String
+  telefone String
+  cpf String
+  turno String
+  createdAt   DateTime?
+  updatedAt   DateTime?
+  gymCnpj String
+  gym Gym @relation(fields: [gymCnpj], references: [cnpj])
+}
+
+model Aparelho {
+  id Int @id @default(autoincrement())
+  nomeAparelho String
+  statusAparelho String
+  fabricante String
+  avatar String
+  gymCnpj String
+  gym Gym @relation(fields: [gymCnpj], references: [cnpj])
+  createdAt DateTime?
+  updatedAt DateTime?
+}
+
+model Funcionario {
+  id Int @id @default(autoincrement())
+  nomeFuncionario String
+  funcao String
+  turno String
+  gymCnpj String
+  gym Gym @relation(fields: [gymCnpj], references: [cnpj])
+  createdAt DateTime?
+  updatedAt DateTime?
+}
