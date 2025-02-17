@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Aluno" ALTER COLUMN "idade" SET DATA TYPE TEXT;
